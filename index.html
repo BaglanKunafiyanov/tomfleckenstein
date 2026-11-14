@@ -1,456 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tom Fleckenstein Group | Reliability & Product Assurance</title>
-<meta name="description" content="Precision Reliability & Product Assurance engineering for space programmes. Delivering ECSS-compliant FMEA, RHA, and PA documentation.">
+<title>Tom Fleckenstein Group | Space Reliability</title>
 <style>
-  /* Базовые настройки в стиле Teledyne */
   :root {
-    --bg: #ffffff;
-    --text: #111111;
-    --muted: #555555;
-    --accent: #0056b3; /* Строгий корпоративный синий */
-    --line: #e5e5e5;
-    --hover-bg: #f8f9fa;
+    --bg: #ffffff; --text: #111111; --muted: #555555;
+    --accent: #0056b3; --line: #e5e5e5; --hover-bg: #f8f9fa;
   }
-  
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
+  /* Верхнее меню (стиль Teledyne) */
+  header { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 100; }
+  .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+  .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
+  
+  .nav-menu { display: flex; list-style: none; gap: 30px; height: 100%; }
+  .nav-item { position: relative; display: flex; align-items: center; cursor: pointer; height: 100%; }
+  .nav-link { font-size: 15px; color: var(--text); font-weight: 500; padding: 10px 0; }
+  .nav-item:hover .nav-link { color: var(--accent); }
+  
+  /* Выпадающее меню */
+  .dropdown {
+    position: absolute; top: 80px; left: 0; background: #fff;
+    border: 1px solid var(--line); border-top: none; min-width: 250px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: none; flex-direction: column; padding: 10px 0;
   }
+  .nav-item:hover .dropdown { display: flex; }
+  .dropdown a { padding: 12px 20px; font-size: 14px; color: var(--text); font-weight: 500; }
+  .dropdown a:hover { background: var(--hover-bg); color: var(--accent); text-decoration: none; }
 
-  /* Навигация */
-  nav {
-    border-bottom: 1px solid var(--line);
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* Слайдер / Главный экран */
+  .hero {
+    position: relative;
+    height: 500px;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop') center/cover;
+    display: flex; align-items: center;
   }
-  .logo {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text);
+  .hero-content { color: #fff; max-width: 600px; }
+  .hero h1 { font-size: 48px; font-weight: 400; margin-bottom: 16px; line-height: 1.1; }
+  .hero p { font-size: 18px; margin-bottom: 30px; font-weight: 300; }
+  .btn-white {
+    display: inline-block; background: #fff; color: var(--accent);
+    padding: 12px 32px; font-size: 16px; font-weight: 600; border-radius: 2px; transition: all 0.2s;
   }
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-  .nav-links a {
-    font-size: 14px;
-    color: var(--muted);
-    margin-left: 20px;
-    font-weight: 500;
-  }
-  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .btn-white:hover { background: var(--hover-bg); text-decoration: none; }
 
-  /* Переключатель языков */
-  .lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--line);
-  }
-  .lang-switch span {
-    cursor: pointer;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-  .lang-switch span.active { color: var(--text); }
-  .lang-switch span:hover { color: var(--accent); }
-
-  /* Главный экран (Hero) */
-  header {
-    padding: 120px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .hero-content {
-    max-width: 800px;
-  }
-  h1 {
-    font-size: 52px;
-    font-weight: 400;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    color: #000;
-  }
-  .hero-subtitle {
-    font-size: 22px;
-    color: var(--muted);
-    margin-bottom: 40px;
-    font-weight: 300;
-  }
-  .btn {
-    display: inline-block;
-    background-color: var(--accent);
-    color: #fff;
-    padding: 14px 32px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 2px;
-    transition: background-color 0.2s;
-  }
-  .btn:hover { background-color: #004494; text-decoration: none; }
-
-  /* Секции */
-  section {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .section-header {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--muted);
-    margin-bottom: 40px;
-    font-weight: 600;
-  }
-
-  /* Сетка услуг */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-  }
-  .service-card {
-    padding: 32px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-  .service-card:hover {
-    background-color: var(--hover-bg);
-    border-color: #ccc;
-  }
-  .service-card h3 {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 16px;
-    color: #000;
-  }
-  .service-card p {
-    color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 24px;
-  }
-  .tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .tag {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .tag::after { content: " •"; color: var(--line); }
-  .tag:last-child::after { content: ""; }
-
-  /* Блок "О компании" */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-  }
-  .about-text h2 {
-    font-size: 32px;
-    font-weight: 400;
-    margin-bottom: 24px;
-    color: #000;
-  }
-  .about-text p {
-    color: var(--muted);
-    font-size: 18px;
-    margin-bottom: 16px;
-  }
-  .about-stats {
-    background: var(--hover-bg);
-    padding: 40px;
-    border-left: 4px solid var(--accent);
-  }
-  .stat-item { margin-bottom: 24px; }
-  .stat-item:last-child { margin-bottom: 0; }
-  .stat-number {
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .stat-label {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    color: var(--text);
-  }
+  /* Секции и карточки */
+  section { padding: 80px 0; border-bottom: 1px solid var(--line); }
+  .section-title { font-size: 32px; font-weight: 400; margin-bottom: 40px; text-align: center; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+  .card { padding: 30px; border: 1px solid var(--line); transition: 0.2s; }
+  .card:hover { background: var(--hover-bg); border-color: #ccc; }
+  .card h3 { font-size: 20px; margin-bottom: 12px; color: #000; }
+  .card p { color: var(--muted); font-size: 15px; }
 
   /* Футер */
-  footer {
-    padding: 60px 0;
-    background: var(--hover-bg);
-    color: var(--muted);
-    font-size: 14px;
-  }
-  .footer-grid {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  /* Утилита для скрытия элементов */
-  .hidden { display: none !important; }
-
-  @media (max-width: 768px) {
-    h1 { font-size: 36px; }
-    .about-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; } 
-  }
+  footer { padding: 40px 0; background: var(--hover-bg); color: var(--muted); font-size: 14px; text-align: center; }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <nav>
-    <div class="logo">Tom Fleckenstein Group</div>
-    <div class="nav-right">
-      <div class="nav-links">
-        <a href="#expertise" class="lang-en">Expertise</a>
-        <a href="#expertise" class="lang-ru hidden">Компетенции</a>
-        
-        <a href="#about" class="lang-en">About</a>
-        <a href="#about" class="lang-ru hidden">О нас</a>
-        
-        <a href="mailto:baglan.kunafiyanov@gmail.com" class="lang-en">Contact</a>
-        <a href="mailto:baglan.kunafiyanov@gmail.com" class="lang-ru hidden">Контакты</a>
-      </div>
-      <div class="lang-switch">
-        <span id="btn-en" class="active" onclick="setLang('en')">EN</span>
-        <span>/</span>
-        <span id="btn-ru" onclick="setLang('ru')">RU</span>
-      </div>
-    </div>
-  </nav>
-</div>
-
 <header>
-  <div class="container hero-content">
-    <!-- Английская версия -->
-    <div class="lang-en">
-      <h1>Reliability & Product Assurance for Space Programmes.</h1>
-      <p class="hero-subtitle">Delivering precision engineering and ECSS-compliant documentation for the most extreme environments — from LEO instruments to GEO communications satellites.</p>
-      <a href="mailto:baglan.kunafiyanov@gmail.com" class="btn">Request a PA Assessment</a>
-    </div>
-    
-    <!-- Русская версия -->
-    <div class="lang-ru hidden">
-      <h1>Надёжность и Product Assurance для космических программ.</h1>
-      <p class="hero-subtitle">Обеспечиваем инженерную точность и подготовку документации по стандартам ECSS для самых экстремальных условий — от приборов на НОО до спутников связи на ГСО.</p>
-      <a href="mailto:baglan.kunafiyanov@gmail.com" class="btn">Запросить аудит PA</a>
-    </div>
+  <div class="container nav-container">
+    <div class="logo">Tom Fleckenstein Group</div>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <span class="nav-link">Кто мы ▾</span>
+        <div class="dropdown">
+          <a href="#about">О компании</a>
+          <a href="#team">Наш опыт</a>
+          <a href="#values">Ценности</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link">Что мы делаем ▾</span>
+        <div class="dropdown">
+          <a href="#services">FMEA / FMECA</a>
+          <a href="#services">Документация PA (DML, DPL)</a>
+          <a href="#services">RAMS и Доступность</a>
+          <a href="#services">Поддержка ревью (EQSR/DRR)</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link">Инвесторам ▾</span>
+        <div class="dropdown">
+          <a href="#">Отчеты</a>
+          <a href="#">Корпоративное управление</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="news.html" class="nav-link" style="color: var(--accent);">Новости</a>
+      </li>
+    </ul>
   </div>
 </header>
 
-<div class="container">
-
-  <section id="expertise">
-    <!-- Английская версия -->
-    <div class="lang-en">
-      <div class="section-header">Core Capabilities</div>
-    </div>
-    <!-- Русская версия -->
-    <div class="lang-ru hidden">
-      <div class="section-header">Ключевые компетенции</div>
-    </div>
-    
-    <div class="grid">
-      
-      <div class="service-card">
-        <h3 class="lang-en">FMEA / FMECA & FTA</h3>
-        <h3 class="lang-ru hidden">FMEA / FMECA и FTA</h3>
-        
-        <p class="lang-en">Comprehensive failure mode, effects, and criticality analysis. We map out complex failure paths, calculate reliability block diagrams (RBD), and provide actionable mitigation strategies for mission-critical hardware.</p>
-        <p class="lang-ru hidden">Комплексный анализ видов, последствий и критичности отказов. Мы просчитываем сложные пути отказов, строим схемы надежности (RBD) и предлагаем стратегии по снижению рисков для критически важного оборудования.</p>
-        
-        <div class="tag-list">
-          <span class="tag">FMECA</span>
-          <span class="tag">RBD</span>
-          <span class="tag">FTA</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <h3 class="lang-en">Product Assurance Documentation</h3>
-        <h3 class="lang-ru hidden">Документация Product Assurance</h3>
-        
-        <p class="lang-en">Complete ECSS documentation packages. We author, review, and manage DML, DPL, and DMPL to ensure your project sails through design and qualification reviews.</p>
-        <p class="lang-ru hidden">Полные пакеты документации по стандартам ECSS. Мы разрабатываем, проверяем и ведем DML, DPL и DMPL, чтобы ваш проект успешно проходил ревью на этапах проектирования и квалификации.</p>
-        
-        <div class="tag-list">
-          <span class="tag">DML / DPL</span>
-          <span class="tag">ECSS-Q</span>
-          <span class="tag">PA Plans</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <h3 class="lang-en">RAMS & Availability</h3>
-        <h3 class="lang-ru hidden">Надежность</h3>
-        
-        <p class="lang-en">Reliability, Availability, Maintainability, and Safety engineering. We perform MTBF/MTTR calculations, optimize spares using custom Python tooling, and guarantee availability targets.</p>
-        <p class="lang-ru hidden">Инжиниринг надежности, доступности, ремонтопригодности и безопасности. Мы выполняем расчеты MTBF/MTTR, оптимизируем запасы с помощью собственных Python-инструментов и гарантируем достижение целевых показателей доступности.</p>
-        
-        <div class="tag-list">
-          <span class="tag">MTBF / MTTR</span>
-          <span class="tag">Spares Opt.</span>
-          <span class="tag">RAMS</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <h3 class="lang-en">Review Gate Support</h3>
-        <h3 class="lang-ru hidden">Содействие при проведении рассмотрений</h3>
-        
-        <p class="lang-en">Expert guidance from EQSR to DRR. We manage verification matrices, track NCRs to closure, and ensure your qualification evidence is complete and compliant.</p>
-        <p class="lang-ru hidden">Экспертное сопровождение от EQSR до DRR. Мы управляем матрицами верификации, отслеживаем статус NCR до их закрытия и гарантируем полноту и соответствие доказательств квалификации.</p>
-        
-        <div class="tag-list">
-          <span class="tag">EQSR / DRR</span>
-          <span class="tag">Verification</span>
-          <span class="tag">NCR Tracking</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <h3 class="lang-en">Radiation Hardness Assurance</h3>
-        <h3 class="lang-ru hidden">Радиационная стойкость</h3>
-        
-        <p class="lang-en">RHA assessment and derating analysis. We evaluate EEE parts, propose screened COTS alternatives, and ensure compliance with ECSS-Q standards.</p>
-        <p class="lang-ru hidden">Оценка радиационной стойкости и анализ нагрузок. Оценка ЭРИ-компонент, предлагаем проверенные альтернативы коммерческой ЭРИ и обеспечиваем соответствие стандартам ECSS-Q.</p>
-        
-        <div class="tag-list">
-          <span class="tag">RHA</span>
-          <span class="tag">Derating</span>
-          <span class="tag">EEE Parts</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <h3 class="lang-en">AIT & Operations Support</h3>
-        <h3 class="lang-ru hidden">Поддержка AIT и эксплуатации</h3>
-        
-        <p class="lang-en">On-site reliability engineering during Assembly, Integration, and Testing. We lead anomaly investigations, NCR root-cause analysis, and support mission operations.</p>
-        <p class="lang-ru hidden">Инжиниринг надежности на месте во время сборки, интеграции и испытаний. Мы руководим расследованиями аномалий, анализом первопричин (Root Cause) и поддерживаем управление полетом.</p>
-        
-        <div class="tag-list">
-          <span class="tag">AIT</span>
-          <span class="tag">Anomaly Review</span>
-          <span class="tag">Telemetry</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="about-grid">
-      <div class="about-text">
-        <h2 class="lang-en">Engineering precision from design to orbit.</h2>
-        <h2 class="lang-ru hidden">Инженерная точность от проекта до орбиты.</h2>
-        
-        <p class="lang-en">Tom Fleckenstein Group brings a unique dual perspective to space hardware: the design view and the operations view of how systems fail.</p>
-        <p class="lang-ru hidden">Tom Fleckenstein Group предлагает уникальный двойной взгляд на космическое оборудование: как с точки зрения проектирования, так и с точки зрения эксплуатации (понимание того, как системы отказывают в реальности).</p>
-        
-        <p class="lang-en">Our expertise spans GEO and LEO programmes. We have delivered complete PA packages for LEO instruments, managed verification matrices for major communications satellites, and supported mission control for lifetime extension.</p>
-        <p class="lang-ru hidden">Наш опыт охватывает программы на ГСО и НОО. Мы поставляли полные пакеты PA для приборов на НОО, управляли матрицами верификации для крупных спутников связи и поддерживали центры управления полетами для продления срока службы аппаратов.</p>
-      </div>
-      
-      <div class="about-stats">
-        <div class="stat-item">
-          <div class="stat-number">7+</div>
-          <div class="stat-label lang-en">Years of Space Experience</div>
-          <div class="stat-label lang-ru hidden">Лет опыта в космической отрасли</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">ECSS</div>
-          <div class="stat-label lang-en">Q-ST-30, 60, 70 Compliant</div>
-          <div class="stat-label lang-ru hidden">Соответствие Q-ST-30, 60, 70</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">550+</div>
-          <div class="stat-label lang-en">Critical Telemetry Parameters Analyzed</div>
-          <div class="stat-label lang-ru hidden">Проанализировано параметров телеметрии</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<footer>
-  <div class="container footer-grid">
-    <div>
-      <div style="font-weight: 700; color: var(--text); margin-bottom: 8px;">Tom Fleckenstein Group</div>
-      <div class="lang-en">Astana, Kazakhstan</div>
-      <div class="lang-ru hidden">Астана, Казахстан</div>
-    </div>
-    <div>
-      <div style="margin-bottom: 8px;" class="lang-en">Contact</div>
-      <div style="margin-bottom: 8px;" class="lang-ru hidden">Контакты</div>
-      <a href="mailto:baglan.kunafiyanov@gmail.com">baglan.kunafiyanov@gmail.com</a>
-    </div>
-    <div>
-      &copy; <span id="year"></span> Tom Fleckenstein Group. <span class="lang-en">All rights reserved.</span><span class="lang-ru hidden">Все права защищены.</span>
+<!-- Слайдер (Главный экран) -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Reliability & Product Assurance for Space Programmes</h1>
+      <p>Инженерная точность и документация по стандартам ECSS для самых экстремальных условий — от LEO до GEO.</p>
+      <!-- Эта кнопка ведет на страницу news.html -->
+      <a href="news.html" class="btn-white">Learn more</a>
     </div>
   </div>
+</div>
+
+<!-- Услуги -->
+<section id="services">
+  <div class="container">
+    <h2 class="section-title">Наши ключевые компетенции</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>FMEA / FMECA & FTA</h3>
+        <p>Комплексный анализ видов, последствий и критичности отказов. Построение RBD и стратегии снижения рисков.</p>
+      </div>
+      <div class="card">
+        <h3>Документация Product Assurance</h3>
+        <p>Полные пакеты документации по стандартам ECSS. Разработка и ведение DML, DPL, DMPL.</p>
+      </div>
+      <div class="card">
+        <h3>RAMS & Availability</h3>
+        <p>Расчеты MTBF/MTTR, оптимизация запасов (spares) с помощью Python и обеспечение целевой доступности.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    &copy; 2024 Tom Fleckenstein Group. Astana, Kazakhstan.
+  </div>
 </footer>
-
-<script>
-  // Устанавливаем текущий год
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Функция переключения языка
-  function setLang(lang) {
-    // 1. Меняем активный класс у кнопок в меню
-    document.getElementById('btn-en').classList.remove('active');
-    document.getElementById('btn-ru').classList.remove('active');
-    document.getElementById('btn-' + lang).classList.add('active');
-
-    // 2. Прячем все элементы противоположного языка
-    const hideLang = lang === 'en' ? 'ru' : 'en';
-    const elementsToHide = document.querySelectorAll('.lang-' + hideLang);
-    elementsToHide.forEach(el => el.classList.add('hidden'));
-
-    // 3. Показываем все элементы выбранного языка
-    const elementsToShow = document.querySelectorAll('.lang-' + lang);
-    elementsToShow.forEach(el => el.classList.remove('hidden'));
-  }
-</script>
 
 </body>
 </html>
