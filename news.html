@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новости | Tom Fleckenstein Group</title>
+<style>
+  :root {
+    --bg: #ffffff; --text: #111111; --muted: #555555;
+    --accent: #0056b3; --line: #e5e5e5; --hover-bg: #f8f9fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  
+  header { border-bottom: 1px solid var(--line); background: #fff; height: 80px; display: flex; align-items: center; }
+  .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+  .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
+  .back-link { font-size: 15px; font-weight: 500; }
+
+  .article-header { padding: 80px 0 40px; text-align: center; max-width: 800px; margin: 0 auto; }
+  .article-header h1 { font-size: 42px; font-weight: 400; margin-bottom: 20px; line-height: 1.1; }
+  .article-meta { color: var(--muted); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  
+  .article-image { width: 100%; height: 400px; object-fit: cover; margin-bottom: 40px; }
+  
+  .article-content { max-width: 800px; margin: 0 auto 80px; font-size: 18px; color: var(--muted); }
+  .article-content p { margin-bottom: 20px; }
+  .article-content h2 { color: var(--text); font-size: 28px; font-weight: 400; margin: 40px 0 20px; }
+
+  footer { padding: 40px 0; background: var(--hover-bg); color: var(--muted); font-size: 14px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-container">
+    <div class="logo">Tom Fleckenstein Group</div>
+    <a href="index.html" class="back-link">← На главную</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="article-header">
+    <div class="article-meta">Пресс-релиз • 14 Ноября 2026</div>
+    <h1>Запуск направления Product Assurance для коммерческих LEO-миссий</h1>
+  </div>
+
+  <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Space" class="article-image">
+
+  <div class="article-content">
+    <p>Компания Tom Fleckenstein Group с гордостью объявляет о расширении спектра услуг по обеспечению надежности (Reliability) и продуктового обеспечения (Product Assurance) для коммерческих космических аппаратов на низкой околоземной орбите (LEO).</p>
+    
+    <h2>Опыт, проверенный на GEO и LEO</h2>
+    <p>Обладая более чем 7-летним опытом работы с программами GEO (такими как Yamal-601 и KazSat) и LEO, наша команда готова предоставить полный цикл документации по стандартам ECSS. Мы берем на себя подготовку DML, DPL, DMPL, а также проведение анализа FMECA и FTA.</p>
+    
+    <p>Наш подход позволяет снизить риски на этапах AIT (сборки, интеграции и испытаний) и успешно пройти все ревью, от EQSR до DRR. Мы понимаем, как отказывают системы — и на этапе проектирования, и в процессе эксплуатации на орбите.</p>
+
+    <h2>Что это значит для наших клиентов?</h2>
+    <p>Вы получаете предсказуемый процесс квалификации оборудования. Мы помогаем обосновать применение COTS-компонентов с требуемым уровнем скрининга, оптимизировать запасы с помощью собственных инструментов на Python, и гарантировать, что ваша телеметрия и матрица верификации будут в идеальном порядке.</p>
+    
+    <p>Свяжитесь с нами для проведения первичного аудита PA (PA Gap Assessment).</p>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 Tom Fleckenstein Group. Astana, Kazakhstan.
+  </div>
+</footer>
+
+</body>
+</html>
